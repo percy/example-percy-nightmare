@@ -1,2 +1,2 @@
 # example-percy-nightmare
-Example app showing integration of Percy visual testing into Nightmare tests.
+Example app showing integration of [Percy](https://percy.io/) visual testing into Nightmare tests.
