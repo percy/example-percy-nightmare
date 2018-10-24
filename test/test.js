@@ -3,6 +3,21 @@ const Nightmare = require('nightmare')
 
 const TEST_URL = "http://localhost:8000"
 
+var percySnapshot = function(name) {
+  name = name || __filename.split(__dirname + "/").pop()
+  return function(nightmare) {
+    nightmare
+      .inject('js', 'node_modules/@percy/agent/dist/public/percy-agent.js')
+      .evaluate(function() {
+        // TODO: add passing in client and environment info into agent client
+        const percyAgentClient = new PercyAgent()
+        // TODO: 'name' is actually not defined in this scope -- figure out a way to pass it
+        // TODO: add passing of options
+        percyAgentClient.snapshot(name)
+      })
+   }
+}
+
 describe('TodoMVC', function () {
   this.timeout('10s')
 
@@ -21,6 +36,8 @@ describe('TodoMVC', function () {
     nightmare
       // Load the app.
       .goto(TEST_URL)
+      // Take a snapshot and upload to Percy
+      .use(percySnapshot(this.test.fullTitle()))
       // Verify that our main app container exists.
       .exists('section.todoapp')
       .then(function (exists) {
