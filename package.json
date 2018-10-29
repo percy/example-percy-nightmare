@@ -1,13 +1,15 @@
 {
   "private": true,
   "scripts": {
-    "test": "./run-tests.sh"
+    "test": "percy exec -- ./run-tests.sh"
   },
   "dependencies": {
     "todomvc-app-css": "^2.0.1",
     "todomvc-common": "^1.0.2"
   },
   "devDependencies": {
+    "@percy/agent": "0.0.49",
+    "@percy/nightmare": "file:../percy-nightmare",
     "chai": "^4.2.0",
     "http-server": "^0.11.1",
     "mocha": "^5.2.0",
