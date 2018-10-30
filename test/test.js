@@ -54,18 +54,18 @@ describe('TodoMVC', function () {
       .evaluate(function () {
         return document.querySelectorAll('.todo-list li').length
       })
-      .then(function (todoListLength, snapshotName) {
+      .then(function (todoListLength) {
         // We start with an empty to-do list.
         todoListLength.should.eq(0)
 
         // Add a new to-do item.
         return nightmare.type('.new-todo', 'New fancy todo')
           .wait('.todo-list li')
-          .use(percySnapshot(snapshotName))
+          .use(percySnapshot('Accepts a new todo'))
           .evaluate(function () {
             return document.querySelectorAll('.todo-list li').length
           })
-      }, this.test.fullTitle() /* for use as Percy snapshot name */)
+      })
       .then(function (todoListLength) {
         // Our to-do list should contain 1 element.
         todoListLength.should.eq(1)
