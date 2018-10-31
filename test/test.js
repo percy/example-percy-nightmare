@@ -1,5 +1,6 @@
 const should = require('chai').should()
 const Nightmare = require('nightmare')
+const { percySnapshot } = require('@percy/nightmare')
 
 const TEST_URL = "http://localhost:8000"
 
@@ -21,6 +22,8 @@ describe('TodoMVC', function () {
     nightmare
       // Load the app.
       .goto(TEST_URL)
+      // Take a snapshot and upload to Percy
+      .use(percySnapshot(this.test.fullTitle(), {widths: [300, 600, 1000]}))
       // Verify that our main app container exists.
       .exists('section.todoapp')
       .then(function (exists) {
@@ -58,6 +61,7 @@ describe('TodoMVC', function () {
         // Add a new to-do item.
         return nightmare.type('.new-todo', 'New fancy todo')
           .wait('.todo-list li')
+          .use(percySnapshot('Accepts a new todo'))
           .evaluate(function () {
             return document.querySelectorAll('.todo-list li').length
           })
@@ -82,6 +86,7 @@ describe('TodoMVC', function () {
 
         return nightmare
           .click('input.toggle')
+          .use(percySnapshot('Checked-off todo', {widths: [300, 600, 1000]}))
           .evaluate(function () {
             return document.querySelector('.todo-count').textContent
           })
