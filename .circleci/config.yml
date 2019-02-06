@@ -22,9 +22,15 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - test
+  node-8:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - test
 
 workflows:
   version: 2
   test:
     jobs:
+      - node-8
       - node-10
