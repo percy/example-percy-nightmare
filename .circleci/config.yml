@@ -33,7 +33,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm test-with-percy
+      - run: npm run test-with-percy
 
 workflows:
   version: 2
