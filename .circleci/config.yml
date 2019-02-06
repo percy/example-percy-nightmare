@@ -1,9 +1,7 @@
-version: 2
-jobs:
+version: 2.1
+
+commands:
   test:
-    docker:
-      - image: circleci/node:10-browsers
-    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -18,8 +16,15 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
 
+jobs:
+  node-10:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - test
+
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - node-10
