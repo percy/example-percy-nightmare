@@ -1,6 +1,6 @@
 version: 2.1
 
-test: &step-defaults
+test: &default-steps
   steps:
     - checkout
     - restore_cache:
@@ -16,11 +16,11 @@ test: &step-defaults
 
 commands:
   test:
-    <<: *step-defaults
+    <<: *default-steps
     steps:
       - run: npm run test
   test-with-percy:
-    <<: *step-defaults
+    <<: *default-steps
     steps:
       - run: npm run test-with-percy
 
