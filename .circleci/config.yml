@@ -1,41 +1,39 @@
 version: 2.1
 
-test: &default-steps
-  steps:
-    - checkout
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
-    - run: npm install
-    - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
-
-commands:
-  test:
-    <<: *default-steps
-    steps:
-      - run: npm run test
-  test-with-percy:
-    <<: *default-steps
-    steps:
-      - run: npm run test-with-percy
-
 jobs:
+  node-8:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm test
   node-10-with-percy:
     # We've opted this node version to be the one that runs and reports Percy's status
     docker:
       - image: circleci/node:10-browsers
     steps:
-      - test-with-percy
-  node-8:
-    docker:
-      - image: circleci/node:8-browsers
-    steps:
-      - test
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm test-with-percy
 
 workflows:
   version: 2
