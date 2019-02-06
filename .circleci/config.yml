@@ -18,11 +18,11 @@ commands:
   test:
     <<: *step-defaults
     steps:
-      - run: npm test
+      - run: npm run test
   test-with-percy:
     <<: *step-defaults
     steps:
-      - run: npm test-with-percy
+      - run: npm run test-with-percy
 
 jobs:
   node-10-with-percy:
