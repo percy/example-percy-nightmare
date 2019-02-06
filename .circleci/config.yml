@@ -1,6 +1,6 @@
 version: 2.1
 
-test: &test-defaults
+test: &step-defaults
   steps:
     - checkout
     - restore_cache:
@@ -13,13 +13,16 @@ test: &test-defaults
         paths:
           - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
-    - run: npm <command>
 
 commands:
   test:
-    <<: *test-defaults
+    <<: *step-defaults
+    steps:
+      - run: npm test
   test-with-percy:
-    <<: *test-defaults
+    <<: *step-defaults
+    steps:
+      - run: npm test-with-percy
 
 jobs:
   node-10-with-percy:
