@@ -12,6 +12,6 @@
     "chai": "^4.2.0",
     "http-server": "^0.11.1",
     "mocha": "^6.1.4",
-    "nightmare": "^3.0.1"
+    "nightmare": "^3.0.2"
   }
 }
