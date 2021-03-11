@@ -1,7 +1,7 @@
 const should = require('chai').should();
 const Nightmare = require('nightmare');
 const httpServer = require('http-server');
-const { percySnapshot } = require('@percy/nightmare');
+const percySnapshot = require('@percy/nightmare');
 
 const PORT = process.env.PORT_NUMBER || 8000;
 const TEST_URL = `http://localhost:${PORT}`;
