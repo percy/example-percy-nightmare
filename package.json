@@ -1,17 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "test": "percy exec -- node ./run-tests.js"
+    "test": "percy exec -- mocha"
   },
   "dependencies": {
-    "todomvc-app-css": "^2.3.0",
-    "todomvc-common": "^1.0.2"
+    "todomvc-app-css": "^2.3.0"
   },
   "devDependencies": {
-    "@percy/nightmare": "1.1.0",
+    "@percy/cli": "^1.0.0-beta.41",
+    "@percy/migrate": "^0.4.0",
+    "@percy/nightmare": "^2.0.0-beta.2",
     "chai": "^4.3.0",
     "http-server": "^0.12.3",
     "mocha": "^8.3.0",
-    "nightmare": "^3.0.2"
+    "nightmare": "^3.0.2",
+    "xvfb": "^0.4.0"
   }
 }
