@@ -9,7 +9,7 @@
   "devDependencies": {
     "@percy/cli": "^1.0.0-beta.41",
     "@percy/nightmare": "^2.0.0",
-    "chai": "^4.3.0",
+    "chai": "^4.3.4",
     "http-server": "^0.12.3",
     "mocha": "^8.3.2",
     "nightmare": "^3.0.2",
