@@ -7,7 +7,7 @@
     "todomvc-app-css": "^2.3.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.0.0-beta.42",
+    "@percy/cli": "^1.0.0-beta.44",
     "@percy/nightmare": "^2.0.0",
     "chai": "^4.3.4",
     "http-server": "^0.12.3",
