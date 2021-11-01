@@ -10,7 +10,7 @@
     "@percy/cli": "^1.0.0-beta.68",
     "@percy/nightmare": "^2.0.0",
     "chai": "^4.3.4",
-    "http-server": "^13.0.2",
+    "http-server": "^14.0.0",
     "mocha": "^9.1.2",
     "nightmare": "^3.0.2",
     "xvfb": "^0.4.0"
