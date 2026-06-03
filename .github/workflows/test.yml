@@ -4,20 +4,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12
-      - uses: actions/cache@v2
+          node-version: 20
+      - uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: v1/${{ runner.os }}/node-12/${{ hashFiles('**/package-lock.lock') }}
-          restore-keys: v1/${{ runner.os }}/node-12/
+          key: v1/${{ runner.os }}/node-20/${{ hashFiles('**/package-lock.json') }}
+          restore-keys: v1/${{ runner.os }}/node-20/
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        uses: percy/exec-action@v0.3.1
-        with:
-          custom-command: "npm test"
+        run: npm test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
