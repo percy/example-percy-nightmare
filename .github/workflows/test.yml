@@ -16,13 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        # .npmrc sets ignore-scripts=true (supply-chain hardening, PER-9533).
-        # On npm 6 that also suppresses `npm test` (the run-script itself), so
-        # percy never executes, no Percy build is created, and the required
-        # percy/* commit status is never reported. Re-enable scripts for just
-        # this invocation so the test script runs; dependency installs above
-        # stay hardened.
         run: npm test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          npm_config_ignore_scripts: "false"
