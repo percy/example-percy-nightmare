@@ -15,6 +15,12 @@ jobs:
           restore-keys: v1/${{ runner.os }}/node-12/
       - name: Install dependencies
         run: npm install
+      - name: Run Percy's postinstall (ignore-scripts=true skips it)
+        # .npmrc sets ignore-scripts=true (supply-chain hardening, PER-9533),
+        # which skips @percy/core's postinstall — without it `percy exec` no-ops,
+        # no Percy build is created, and the required percy/* commit status never
+        # gets reported. Run that one trusted lifecycle script explicitly.
+        run: npm rebuild @percy/core --ignore-scripts=false
       - name: Run tests
         run: npm test
         env:
