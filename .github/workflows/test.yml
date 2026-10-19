@@ -3,7 +3,17 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Nightmare 3 pins Electron 2, which needs libgconf-2-4 and an older glibc
+    # toolchain that ubuntu-latest (24.04) no longer ships; run on 20.04 instead.
+    container: ubuntu:20.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates git python3 make g++ \
+            xvfb xauth libgconf-2-4 libgtk-3-0 libnss3 libxss1 libasound2 libx11-xcb1 libxtst6
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -19,3 +29,4 @@ jobs:
         run: npm test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          DEBUG: nightmare:*,electron:*
