@@ -3,12 +3,24 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Nightmare 3 pins Electron 2, which needs libgconf-2-4 and an older glibc
+    # toolchain that ubuntu-latest (24.04) no longer ships; run on 20.04 instead.
+    container: ubuntu:20.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates git python3 make g++ \
+            xvfb xauth libgconf-2-4 libgtk-3-0 libnss3 libxss1 libasound2 libx11-xcb1 libxtst6 \
+            libgbm1 libdrm2 libxkbcommon0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxdamage1 \
+            libxrandr2 libpango-1.0-0 fonts-liberation
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 12
-      - uses: actions/cache@v4
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ~/.npm
           key: v1/${{ runner.os }}/node-12/${{ hashFiles('**/package-lock.json') }}
